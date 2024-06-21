@@ -1,0 +1,7 @@
+{
+'inst_rate': [0.3],
+'pop_size': [20],
+'num_generations': [70],
+'mutation_rate': [0.025],
+}
+
