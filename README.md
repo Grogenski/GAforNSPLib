@@ -32,6 +32,7 @@ Este projeto foi desenvolvido para mostrar de forma simples a utilização de um
   - `pyproject.toml`
   - `README.md`
   - `requirements.txt` (lista de bibliotecas necessárias)
+  - `settings.txt` (parâmetros do GA)
 
 
 ## Instalação
@@ -70,6 +71,68 @@ Este projeto foi desenvolvido para mostrar de forma simples a utilização de um
    pip install -r requirements.txt
    ```
 
+### Passos para Utilização
+
+Para utilizar o algoritmo, siga os passos abaixo:
+
+#### Configuração dos Parâmetros
+
+Antes de executar o algoritmo, é necessário configurar os parâmetros no arquivo `setting.txt`. Este arquivo contém os parâmetros do GA e a taxa de amostragem das instâncias NSP. A estrutura do arquivo é a seguinte:
+
+```json
+{
+  "inst_rate": [0.3],
+  "pop_size": [20],
+  "num_generations": [70],
+  "mutation_rate": [0.025]
+}
+```
+Em que cada campo representa:
+
+- `inst_rate`: Taxa de amostragem aleatória das instâncias. Utilize 1 para usar todas as 7290 instâncias.
+- `pop_size`: Tamanho da população do GA.
+- `num_generations`: Número de gerações utilizadas como critério de parada.
+- `mutation_rate`: Taxa de mutação do GA.
+
+*Atenção*: Não altere a estrutura do arquivo, apenas os valores dos campos.
+
+#### Execução do Algoritmo
+Após configurar os parâmetros no arquivo `setting.txt`, execute o arquivo principal `main.py` utilizando o comando:
+
+```bash
+python main.py
+```
+
+Os resultados serão armazenados na pasta destinada aos resultados. O nome do arquivo conterá a seed da execução e incluirá todos os resultados brutos, como por exemplo:
+
+- GEN (arquivo .gen utilizado)
+- NSP (arquivo .nsp utilizado)
+- Valor fitness
+- Valor total das preferências
+- Tempo gasto para executar a instância NSP
+- Matriz de violação
+- Matriz de escalonamento
+
+#### Resumo dos Resultados
+
+Para resumir os resultados brutos, utilize o arquivo `ReadResult.py`. Este processo é manual e requer que você especifique quais arquivos deseja resumir. Por exemplo, para três arquivos de resultado:
+
+```bash
+summary1 = result_import("results/15062024083357.txt")
+summary2 = result_import("results/16062024074119.txt")
+summary3 = result_import("results/15062024082323.txt")
+```
+
+Adicione essas variáveis dentro da lista `summaries`:
+
+```bash
+summaries = [summary1, summary2, summary3]
+```
+
+*Nota*: Remova o cabeçalho dos arquivos de resultado (as duas primeiras linhas) para garantir o funcionamento correto do algoritmo de sumarização.
+
+Após isso, será gerado um arquivo chamado `GGK137.txt` com os resultados resumidos.
+
 ## Estrutura dos Arquivos NSPLib
 
 A NSPLib consiste em uma coleção de arquivos de instâncias do PEE. Esta biblioteca contém dois tipos de arquivos que, quando usados juntos, definem todas as características do problema. O primeiro tipo de arquivo inclui a demanda para cada dia da escala a ser desenvolvida e as preferências de cada enfermeiro para cada turno durante o período. As preferências dos enfermeiros são representadas por números inteiros de 1 a 4. O segundo tipo de arquivo, conhecido como caso de aplicação, especifica as restrições flexíveis do problema. Existem 16 casos ao todo: os casos de 1 a 8 são para escalas de 7 dias, e os casos de 9 a 16 são para escalas de 28 dias.
@@ -107,6 +170,9 @@ As restrições rígidas são definidas por legislações trabalhistas, a saber:
 - Proibição de um turno da tarde ser seguido por um turno da manhã (RR1); 
 - Proibição de um turno da noite ser seguido por um turno da manhã (RR2); 
 - Proibição de um turno da noite ser seguido por um turno da tarde (RR3).
+## Tutorial
+
+
 
 ## Licença
 
